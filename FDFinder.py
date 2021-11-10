@@ -15,70 +15,6 @@ from cigar import Cigar
 from multiprocessing import Manager
 
 
-if __name__ == "__main__": 
-    '''
-    #Fixed Parameter
-    Lenlimit = 0#20 # MAF Length cutoff (Reference)
-    LenCutoff = 0#0.8 #0.9 # Old Length % cut off 
-    Cores = 40
-    HapChr = ['NC_009114','NC_009115','NC_009116','NC_009118'] + ['CM014221', 'CM014222', 'CM014223', 'CM014224', 'CM014225', 'RZJT01000027', 'RZJT01000028', 'RZJT01000029', 'RZJT01000030', 'RZJT01000031'] # only VGPOrnana + PreOrnanaSex( VGP has half of sex chromsome reads for pre. assembly)
-    MQCutoff = 20
-    MultiMQCutoff = 3
-    InsertSizeCutoff = 550
-    ClusteringSize = 550
-    FlankingSize = 550
-    MQSampling = 1000
-    ###################
-
-    #Operation parameter
-         
-    Path, KPath, PreFaiPath, VGPFaiPath = '/home/ko/cactus/02/', '/disk3/ko_d3/', '/home/ko/rawdata/pre_taegut.fasta.fai', '/home/ko/rawdata/vgp_taegut.fasta.fai'
-    Input = 'Zebrafinch2_2'
-    Ref, Tar, Alt = 'Zebrafinch1', 'Zebrafinch0', 'Zebrafinch2'
-    PreBamPath, VGPBamPath = '/disk1/ko_d1/merged_L001_to_L008.sorted.bam', '/disk1/ko_d1/merged_L001_to_L008.toVGP.sorted.bam'
-    PreAG, VGPAG, PreDG, VGPDG, PreKmerDic, VGPKmerDic = '02AssemblyGap_parsing.txt', '02VGPAssemblyGap_parsing.txt', '02PreDepthGap_3TNew.txt', '02VGPDepthGap_3TNew.txt', '02PreKmerDic/', '02VGPKmerDic/'
-    PreCutoff = 45 # between minimum 4 bimodal distribution
-    PreHapCutoff = '-'
-    VGPCutoff = 67 * 0.75 #
-    PreSECutoff, VGPSECutoff = 5, 2
-    ChrNameFile = 'ChrName'
-    PrePurgeDupPath, VGPPurgeDupPath = 'Predups.bed', 'VGPdups.bed'
-    PrePurgePafPath, VGPPurgePafPath = 'pre_taegut.fasta.split.self.paf', 'vgp_taegut.fasta.split.self.paf'
-    '''
-    '''
-    Path, KPath, PreFaiPath, VGPFaiPath = '/home/ko/cactus/04/', '/disk3/ko_d3/', '/home/ko/rawdata/Calann1_1_SH.fna.fai', '/home/ko/rawdata/Calann0_1_SH.fna.fai'
-    Input = 'Calann'
-    Ref, Tar, Alt = 'Calann0', 'Calann2', 'Calann1'
-    PreBamPath, VGPBamPath = '/disk3/ko_d3/0410x/04_10x_pre/Calann10x2Pre.bam', '/disk3/ko_d3/0410x/04_10x_VGP/Calann10x2VGP.bam'
-    PreAG, VGPAG, PreDG, VGPDG, PreKmerDic, VGPKmerDic = '04AssemblyGap_parsing.txt', '04VGPAssemblyGap_parsing.txt', '04PreDepthGap_3TNew.txt', '04VGPDepthGap_3TNew.txt', '04PreKmerDic/', '04VGPKmerDic/'
-    PreCutoff = 37 * 0.75 # between minimum 4 bimodal distribution
-    PreHapCutoff = '-'
-    VGPCutoff = 37 * 0.75 #
-    PreSECutoff, VGPSECutoff = 8, 2
-    ChrNameFile = 'ChrName_OldOld'
-    #ChrNameFile = 'ChrName_OldNew' #onlyused for FDResulting.py ChrPairDic producing
-    PrePurgeDupPath, VGPPurgeDupPath = 'Predups.bed', 'VGPdups.bed'
-    PrePurgePafPath, VGPPurgePafPath = 'Calann1_1_SH.fna.split.self.paf', 'Calann0_1_SH.fna.split.self.paf'
-    '''
-    '''
-    Path, KPath, PreFaiPath, VGPFaiPath = "/home/ko/cactus/09_2/", '/disk3/ko_d3/', '/home/ko/rawdata/Ornana1_1DMHD.fna.fai', '/home/ko/rawdata/Ornana0_1HD.fna.fai'
-    Input = "Ornana_2"
-    Ref, Tar, Alt = 'Ornana0_1', 'Ornana1_1DM', 'Ornana2'
-    PreBamPath, VGPBamPath = '/disk3/ko_d3/0910x/09_10x_pre/Ornana10X2Old.bam', '/disk3/ko_d3/0910x/09_10x_VGP/Ornana10X2VGP.bam'
-    PreAG, VGPAG, PreDG, VGPDG, PreKmerDic, VGPKmerDic = '09AssemblyGap_parsing.txt', '09VGPAssemblyGap_parsing.txt', '09PreDepthGap_3TNew.txt', '09VGPDepthGap_3TNew.txt', '09PreKmerDic/', '09VGPKmerDic/'
-    PreCutoff =  65 # lowest delta depth coverage #68 # between minimum 4 bimodal distribution
-    PreHapCutoff = 65 * 0.75
-    VGPHapCutoff = 62 * 0.75 # haploid maximum
-    VGPCutoff = 68 # lowest depth between bimodal distribution #119 * 0.75 #
-    PreSECutoff, VGPSECutoff = 22, 9
-    ChrNameFile = 'ChrName_OldOld' #used for Main
-    #ChrNameFile = 'ChrName_OldNew' #only used for FDResulting.py ChrPairDic Producing 
-    PrePurgeDupPath, VGPPurgeDupPath = 'Predups.bed', 'VGPdups.bed'
-    PrePurgePafPath, VGPPurgePafPath = 'Ornana1_1DMHD.fna.split.self.paf', 'Ornana0_1HDDS.fna.split.self.paf'
-    '''
-
-    ############################
-
 def Main0_ConfigLoad(ConfigPath):
     PD = {}
     with open(ConfigPath, 'r') as cr: Params = cr.read().split('\n')
@@ -98,7 +34,7 @@ def Main0_ConfigLoad(ConfigPath):
     f0.close()
     return PD, Maf
 
-### [Normal Tool]
+### [Simple Tools]
 def BinSaving(JobPath, PythonData, FileName):#c     
     with open(JobPath + FileName+'.Pybin', 'wb') as fb: pickle.dump(PythonData, fb)
 
